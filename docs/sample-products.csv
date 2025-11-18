@@ -1,0 +1,11 @@
+name,sku,price,stock_quantity,description
+"Gaming Laptop RTX 4080","GAM-LAP-4080",2499.99,25,"High-end gaming laptop with RTX 4080"
+"Wireless Gaming Mouse","WGM-PRO-001",79.99,150,"Professional wireless gaming mouse"
+"Mechanical Keyboard RGB","MKB-RGB-001",149.99,100,"RGB mechanical keyboard with blue switches"
+"4K Gaming Monitor 27""","MON-4K-27",599.99,50,"27-inch 4K gaming monitor with 144Hz"
+"USB-C Hub 8-in-1","HUB-8IN1-001",89.99,200,"8-in-1 USB-C hub with HDMI and ethernet"
+"Bluetooth Headphones Pro","BHP-PRO-001",299.99,75,"Premium noise-cancelling Bluetooth headphones"
+"Smartphone Case Clear","SPC-CLR-001",19.99,500,"Clear protective case for smartphones"
+"Wireless Charger Fast","WCF-15W-001",39.99,300,"15W fast wireless charging pad"
+"External SSD 1TB","SSD-EXT-1TB",199.99,100,"Portable 1TB external SSD drive"
+"Webcam 4K Ultra","WC-4K-001",179.99,80,"4K ultra HD webcam with auto-focus"
