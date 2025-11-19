@@ -33,7 +33,7 @@ Register a new user account.
 ```json
 {
     "name": "John Doe",
-    "email": "john@example.com",
+    "email": "admin@example.com",
     "password": "password123",
     "password_confirmation": "password123"
 }
@@ -45,7 +45,7 @@ Register a new user account.
     "user": {
         "id": 1,
         "name": "John Doe",
-        "email": "john@example.com"
+        "email": "admin@example.com"
     },
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
     "token_type": "bearer",
@@ -59,7 +59,7 @@ Authenticate user and get JWT token.
 **Request Body:**
 ```json
 {
-    "email": "john@example.com",
+    "email": "admin@example.com",
     "password": "password123"
 }
 ```
@@ -70,7 +70,7 @@ Authenticate user and get JWT token.
     "user": {
         "id": 1,
         "name": "John Doe",
-        "email": "john@example.com"
+        "email": "admin@example.com"
     },
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
     "token_type": "bearer",

@@ -169,6 +169,15 @@ Authorization: Bearer your_jwt_token
 
 ## 📚 API Documentation
 
+### Swagger Documentation
+Access the interactive API documentation at: `http://localhost:8000/api/documentation`
+
+The Swagger UI provides:
+- Complete API endpoint documentation
+- Interactive testing interface
+- Request/response examples
+- Authentication testing with JWT tokens
+
 ### Authentication Endpoints
 
 #### Register

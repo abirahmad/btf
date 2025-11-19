@@ -9,14 +9,27 @@ use App\Repositories\OrderRepository;
 use App\Actions\GenerateInvoiceAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class OrderController extends Controller
 {
+    use AuthorizesRequests;
     public function __construct(
         private OrderService $orderService,
         private OrderRepository $orderRepository
     ) {}
 
+    /**
+     * @OA\Get(
+     *     path="/orders",
+     *     summary="Get list of orders",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Orders"},
+     *     @OA\Parameter(name="page", in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="per_page", in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Orders retrieved successfully")
+     * )
+     */
     public function index(Request $request)
     {
         if (auth()->user()->hasRole('customer')) {
@@ -28,6 +41,56 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/orders",
+     *     summary="Create a new order",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Orders"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="items",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     @OA\Property(property="product_id", type="integer", example=1),
+     *                     @OA\Property(property="quantity", type="integer", example=2),
+     *                     @OA\Property(property="variant", type="object", example={"color": "Silver", "storage": "512GB"})
+     *                 ),
+     *                 example={{
+     *                     "product_id": 1,
+     *                     "quantity": 2,
+     *                     "variant": {"color": "Silver", "storage": "512GB"}
+     *                 }}
+     *             ),
+     *             @OA\Property(
+     *                 property="shipping_address",
+     *                 type="object",
+     *                 example={
+     *                     "name": "John Doe",
+     *                     "street": "123 Main St",
+     *                     "city": "New York",
+     *                     "state": "NY",
+     *                     "zip": "10001"
+     *                 }
+     *             ),
+     *             @OA\Property(
+     *                 property="billing_address",
+     *                 type="object",
+     *                 example={
+     *                     "street": "123 Main St",
+     *                     "city": "New York",
+     *                     "state": "NY",
+     *                     "zip": "10001"
+     *                 }
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=201, description="Order created successfully"),
+     *     @OA\Response(response=422, description="Validation errors")
+     * )
+     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -55,6 +118,17 @@ class OrderController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/orders/{id}",
+     *     summary="Get a specific order",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Orders"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Order retrieved successfully"),
+     *     @OA\Response(response=404, description="Order not found")
+     * )
+     */
     public function show(Order $order)
     {
         $this->authorize('view', $order);
@@ -94,6 +168,17 @@ class OrderController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *     path="/orders/{id}/invoice",
+     *     summary="Download order invoice",
+     *     security={{"bearerAuth":{}}},
+     *     tags={"Orders"},
+     *     @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     *     @OA\Response(response=200, description="Invoice PDF file"),
+     *     @OA\Response(response=404, description="Order not found")
+     * )
+     */
     public function invoice(Order $order, GenerateInvoiceAction $invoiceAction)
     {
         $this->authorize('view', $order);
