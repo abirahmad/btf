@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\OrderController;
 
 // Public routes
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(App\Http\Middleware\ApiRateLimitMiddleware::class)->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     
@@ -16,7 +16,7 @@ Route::prefix('v1')->group(function () {
 });
 
 // Protected routes
-Route::prefix('v1')->middleware('auth:api')->group(function () {
+Route::prefix('v1')->middleware(['auth:api', App\Http\Middleware\ApiRateLimitMiddleware::class])->group(function () {
     // Auth routes
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);

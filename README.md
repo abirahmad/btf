@@ -178,6 +178,16 @@ The Swagger UI provides:
 - Request/response examples
 - Authentication testing with JWT tokens
 
+### Postman Collection
+Import the complete Postman collection: `docs/Order-Management-API-Complete.postman_collection.json`
+
+Features:
+- Auto JWT token management
+- Pre-filled example requests
+- Complete workflow testing
+- Rate limiting headers
+- 15 endpoints with examples
+
 ### Authentication Endpoints
 
 #### Register
